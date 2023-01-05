@@ -20,7 +20,7 @@ function FollowButton() {
 
     const followBtnStyle = {
         ...commonBtnStyle,
-        backgroundColor: "#333",
+        backgroundColor: "black",
         color: "white",
     };
 
