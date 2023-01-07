@@ -2,8 +2,9 @@ import { useState } from "react";
 // import Header from "./components/Header";
 // import Welcome from "./components/Welcome";
 // import Counter from "./components/Counter";
-
-import Calculator from "./components/state/Calculator";
+// import Calculator from "./components/state/Calculator";
+// import ClockClass from "./components/life-cycle/ClockClass";
+import ClockHook from "./components/life-cycle/ClockHook";
 
 import "./App.css";
 
@@ -17,7 +18,9 @@ function App() {
             {message === "bbung" && "hello"}
             <Welcome firstName="bbung" lastName="95" withImg={true}></Welcome> */}
             {/* <Counter></Counter> */}
-            <Calculator />
+            {/* <Calculator /> */}
+            {/* <ClockClass></ClockClass> */}
+            <ClockHook></ClockHook>
         </div>
     );
 }
