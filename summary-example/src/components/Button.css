@@ -1,0 +1,16 @@
+.btn {
+    box-sizing: border-box;
+    width: 120px;
+    height: 60px;
+    font-size: 16px;
+    color: #fff;
+    background-color: rgb(103, 131, 230);
+    border: none;
+    border-radius: 10px;
+}
+
+.btn:hover {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid lightgray;
+}
