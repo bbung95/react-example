@@ -1,26 +1,12 @@
-import { useState } from "react";
-// import Header from "./components/Header";
-// import Welcome from "./components/Welcome";
-// import Counter from "./components/Counter";
-// import Calculator from "./components/state/Calculator";
-// import ClockClass from "./components/life-cycle/ClockClass";
-import ClockHook from "./components/life-cycle/ClockHook";
+import React, { useState } from "react";
+import Banner from "./components/event/Banner";
 
 import "./App.css";
 
 function App() {
-    const [message, setMessage] = useState();
-
     return (
         <div className="App">
-            {/* <input type="text" onKeyUp={(e) => setMessage(e.target.value)}></input>
-            <Header message={message} />
-            {message === "bbung" && "hello"}
-            <Welcome firstName="bbung" lastName="95" withImg={true}></Welcome> */}
-            {/* <Counter></Counter> */}
-            {/* <Calculator /> */}
-            {/* <ClockClass></ClockClass> */}
-            <ClockHook></ClockHook>
+            <Banner />
         </div>
     );
 }
