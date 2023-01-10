@@ -36,11 +36,12 @@ function CardRaffle() {
     const cardsRemove = (card) => {
         setCards(cards.filter((item) => item.phoneNumber !== card.phoneNumber));
     };
+    const cardList = winner.map((item) => <BusinessCard key={item.phoneNumber} info={item} />);
 
     return (
         <div>
             {cards.length > 0 && <Button len={cards.length} hadlerCardRaffle={raffle} />} 당첨된 인원 : {winner.length}
-            {winner.length > 0 && <BusinessCard info={winner[winner.length - 1]} />}
+            {winner.length > 0 && cardList}
         </div>
     );
 }
