@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import Banner from "./components/event/Banner";
 
 import "./App.css";
+import CatParent from "./components/form/CatParent";
 
 function App() {
     return (
         <div className="App">
-            <Banner />
+            <CatParent />
         </div>
     );
 }
