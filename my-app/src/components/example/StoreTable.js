@@ -1,5 +1,6 @@
 import React from "react";
 import ItemList from "./ItemList";
+import * as S from "./ProductsTableStyle";
 
 const ItemArea = (props) => {
     const data = props.data;
@@ -25,7 +26,7 @@ const ItemArea = (props) => {
     return (
         <div>
             <div>
-                <strong>Name Price</strong>
+                <S.Category>Name Price</S.Category>
                 {category && category.map((key) => <ItemList key={key} title={key} items={listFilter(key, filterData)} stocked={stocked} />)}
             </div>
         </div>
