@@ -1,27 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
+import useFetch from "../util/useFetch.js";
 
 const ReactDocPage = () => {
-    const [doc, setDoc] = useState({});
-
     const params = useParams();
     const docId = params.docId;
 
-    useEffect(() => {
-        async function fetchDetailData() {
-            const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${docId}`);
-            const data = await res.json();
-            return data;
-        }
+    const { data, loading, error } = useFetch(`https://jsonplaceholder.typicode.com/posts/${docId}`, "");
 
-        fetchDetailData().then((data) => setDoc(data));
-    }, []);
-
-    return (
+    return loading ? (
+        <div>loading</div>
+    ) : (
         <div>
             <h4>ReactDocPage ##{docId}</h4>
-            <h3>{doc.title}</h3>
-            <p>{doc.body}</p>
+            <h3>{data.title}</h3>
+            <p>{data.body}</p>
         </div>
     );
 };
