@@ -5,21 +5,24 @@ import BlogPage from "./components/BlogPage";
 import JavascriptPage from "./components/JavascriptPage";
 import ReactPage from "./components/ReactPage";
 import ReactDocPage from "./components/ReactDocPage";
+import UserStore from "./store/user";
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path={"/"} element={<MainPage />} />
-                <Route path={"tech"} element={<TechPage />}>
-                    <Route path={"javascript"} element={<JavascriptPage />} />
-                    <Route path={"react"} element={<ReactPage />} />
-                    <Route path={"react/:docId"} element={<ReactDocPage />} />
-                </Route>
-                <Route path={"blog"} element={<BlogPage />} />
-                <Route path={"*"} element={<MainPage />} />
-            </Routes>
-        </BrowserRouter>
+        <UserStore>
+            <BrowserRouter>
+                <Routes>
+                    <Route path={"/"} element={<MainPage />} />
+                    <Route path={"tech"} element={<TechPage />}>
+                        <Route path={"javascript"} element={<JavascriptPage />} />
+                        <Route path={"react"} element={<ReactPage />} />
+                        <Route path={"react/:docId"} element={<ReactDocPage />} />
+                    </Route>
+                    <Route path={"blog"} element={<BlogPage />} />
+                    <Route path={"*"} element={<MainPage />} />
+                </Routes>
+            </BrowserRouter>
+        </UserStore>
     );
 }
 
