@@ -1,33 +1,22 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import Button from "./Button";
 
 const Counter = () => {
     const dispatch = useDispatch();
 
-    const btnStyle = {
-        width: "100px",
-        height: "60px",
-        fontSize: "40px",
+    const handleOnClickDispatch = (action) => {
+        dispatch({ type: action });
     };
 
     return (
         <div>
-            <button
-                style={btnStyle}
-                onClick={() => {
-                    dispatch({ type: "up" });
-                }}
-            >
+            <Button func={handleOnClickDispatch} action={"up"}>
                 +
-            </button>
-            <button
-                style={btnStyle}
-                onClick={() => {
-                    dispatch({ type: "down" });
-                }}
-            >
+            </Button>
+            <Button func={handleOnClickDispatch} action={"down"}>
                 -
-            </button>
+            </Button>
         </div>
     );
 };
