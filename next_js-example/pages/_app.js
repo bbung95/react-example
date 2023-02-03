@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { legacy_createStore as createStore } from "redux";
 import { reducer } from "../src/stores/reducer";
+import "../src/style.css";
 
 const store = createStore(reducer);
 

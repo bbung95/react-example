@@ -3,3 +3,29 @@ export const fetchUser = async () => {
         setTimeout(() => resolve({ name: "zerobase" }), 2000);
     });
 };
+
+export const fetchDeviceList = async () => {
+    return new Promise((resolve) => {
+        setTimeout(
+            () =>
+                resolve([
+                    { id: 1, name: "device", title: "Imac" },
+                    { id: 2, name: "device", title: "Macbook" },
+                ]),
+            1000
+        );
+    });
+};
+
+export const fetchAccessoryList = async () => {
+    return new Promise((resolve) => {
+        setTimeout(
+            () =>
+                resolve([
+                    { id: 1, name: "accesory", title: "모니터" },
+                    { id: 2, name: "accesory", title: "키보드" },
+                ]),
+            1000
+        );
+    });
+};

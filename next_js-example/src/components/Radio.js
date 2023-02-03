@@ -1,5 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
-export default function Radio() {
-  return <input>Radio</input>;
-}
+const Radio = forwardRef(({ id, name, title }, ref) => {
+    return <input ref={ref} id={id} name={name} value={title} type={"radio"} />;
+});
+
+export default Radio;

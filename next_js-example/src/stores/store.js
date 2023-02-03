@@ -1,5 +1,3 @@
-import { combineReducers } from "redux";
-
 export const action = {
     setName: (text) => {
         return { type: "setName", text: text };
@@ -8,6 +6,8 @@ export const action = {
 
 const userInitial = {
     name: "",
+    device: "",
+    accessory: "",
 };
 
 export const user = (state = userInitial, action) => {

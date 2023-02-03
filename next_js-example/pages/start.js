@@ -23,12 +23,22 @@ export default function start() {
         })();
     }, []);
 
-    if (!user.name) return <div>Loading.....</div>;
+    if (!user.name) {
+        return (
+            <div className="container">
+                <div className="wrap">
+                    <h3>Loading.....</h3>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <div>
-            <h2>{user.name}님, 입사를 축하드립니다! 원하시는 개발 장비를 선택해주세요.</h2>
-            <BottomButton text={"시작"} callback={startDeviceChoice}></BottomButton>
+        <div className="container">
+            <div className="wrap">
+                <h2>{user.name}님, 입사를 축하드립니다! 원하시는 개발 장비를 선택해주세요.</h2>
+                <BottomButton text={"시작"} callback={startDeviceChoice}></BottomButton>
+            </div>
         </div>
     );
 }

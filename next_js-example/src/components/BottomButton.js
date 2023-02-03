@@ -10,6 +10,10 @@ const Button = styled.button`
     background-color: lightgray;
 `;
 
-export default function BottomButton({ text, callback }) {
-    return <Button onClick={callback}>{text}</Button>;
+export default function BottomButton({ type, text, callback }) {
+    return (
+        <Button type={type} onClick={callback}>
+            {text}
+        </Button>
+    );
 }
