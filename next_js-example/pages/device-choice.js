@@ -6,6 +6,10 @@ import styled from "styled-components";
 import RadioGroup from "../src/components/RadioGroup";
 import BottomButton from "../src/components/BottomButton";
 
+const ContentsBox = styled.div`
+    text-align: center;
+`;
+
 const DevicesArea = styled.div`
     display: flex;
 `;
@@ -35,19 +39,23 @@ export default function deviceChoice() {
         })();
     }, []);
 
-    if (devices.length === 0) return <div>Loadding...</div>;
-
     return (
-        <div>
-            <h2>{user.name || "무명"}</h2>
-            <form ref={formRef} onSubmit={handleSetDevice}>
-                <DevicesArea>
-                    {devices.map((item) => {
-                        return <RadioGroup key={item.id} device={item} />;
-                    })}
-                </DevicesArea>
-                <BottomButton type={"submit"} text={"다음"} callback={handleSetDevice}></BottomButton>
-            </form>
+        <div className="container">
+            <div className="wrapper">
+                <h2>{user.name || "무명"}</h2>
+                <form ref={formRef} onSubmit={handleSetDevice}>
+                    <ContentsBox>
+                        <DevicesArea>
+                            {devices.map((item) => {
+                                return <RadioGroup key={item.id} device={item} />;
+                            })}
+                        </DevicesArea>
+                    </ContentsBox>
+                </form>
+            </div>
+            <div className="bottomButtonBox">
+                <BottomButton type={"submit"} text={"다음"} onClick={handleSetDevice}></BottomButton>
+            </div>
         </div>
     );
 }

@@ -12,7 +12,7 @@ export const fetchDeviceList = async () => {
                     { id: 1, name: "device", title: "Imac" },
                     { id: 2, name: "device", title: "Macbook" },
                 ]),
-            1000
+            500
         );
     });
 };
@@ -25,7 +25,7 @@ export const fetchAccessoryList = async () => {
                     { id: 1, name: "accesory", title: "모니터" },
                     { id: 2, name: "accesory", title: "키보드" },
                 ]),
-            1000
+            500
         );
     });
 };

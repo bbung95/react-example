@@ -5,13 +5,15 @@ import Radio from "./Radio";
 const ImgArea = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 300px;
     height: 400px;
 `;
 
 const ImgButton = styled.div`
     height: 300px;
-    width: 300px;
+    width: 90%;
     text-align: center;
     font-size: 30px;
     border-radius: 10px;

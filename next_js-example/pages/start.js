@@ -13,6 +13,7 @@ export default function start() {
     const router = useRouter();
 
     const startDeviceChoice = () => {
+        console.log(12);
         router.push("/device-choice");
     };
 
@@ -26,8 +27,8 @@ export default function start() {
     if (!user.name) {
         return (
             <div className="container">
-                <div className="wrap">
-                    <h3>Loading.....</h3>
+                <div className="wrapper">
+                    <h2>Loading.....</h2>
                 </div>
             </div>
         );
@@ -35,9 +36,15 @@ export default function start() {
 
     return (
         <div className="container">
-            <div className="wrap">
-                <h2>{user.name}님, 입사를 축하드립니다! 원하시는 개발 장비를 선택해주세요.</h2>
-                <BottomButton text={"시작"} callback={startDeviceChoice}></BottomButton>
+            <div className="wrapper">
+                <h2>
+                    {user.name}님, 입사를 축하드립니다!
+                    <br />
+                    원하시는 개발 장비를 선택해주세요.
+                </h2>
+            </div>
+            <div className="bottomButtonBox">
+                <BottomButton text={"시작"} onClick={startDeviceChoice}></BottomButton>
             </div>
         </div>
     );

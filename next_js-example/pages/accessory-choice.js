@@ -6,6 +6,10 @@ import styled from "styled-components";
 import RadioGroup from "../src/components/RadioGroup";
 import BottomButton from "../src/components/BottomButton";
 
+const ContentsBox = styled.div`
+    text-align: center;
+`;
+
 const AccessoryArea = styled.div`
     display: flex;
 `;
@@ -35,19 +39,23 @@ export default function accessoryChoice() {
         })();
     }, []);
 
-    if (accessorys.length === 0) return <div>Loadding...</div>;
-
     return (
-        <div>
-            <h2>{user.name || "무명"}</h2>
-            <form ref={formRef} onSubmit={handleSetAccessory}>
-                <AccessoryArea>
-                    {accessorys.map((item) => {
-                        return <RadioGroup key={item.id} device={item} />;
-                    })}
-                </AccessoryArea>
-                <BottomButton type={"submit"} text={"결과보기"} callback={handleSetAccessory}></BottomButton>
-            </form>
+        <div className="container">
+            <div className="wrapper">
+                <h2>{user.name || "무명"}</h2>
+                <form ref={formRef} onSubmit={handleSetAccessory}>
+                    <ContentsBox>
+                        <AccessoryArea>
+                            {accessorys.map((item) => {
+                                return <RadioGroup key={item.id} device={item} />;
+                            })}
+                        </AccessoryArea>
+                    </ContentsBox>
+                </form>
+            </div>
+            <div className="bottomButtonBox">
+                <BottomButton type={"submit"} text={"결과보기"} onClick={handleSetAccessory}></BottomButton>
+            </div>
         </div>
     );
 }

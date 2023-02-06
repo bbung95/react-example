@@ -3,8 +3,19 @@
     width: 100%;
 }
 
-.wrap {
+.wrapper {
     width: 378px;
     height: 100%;
     margin: 0 auto;
+}
+
+.bottomButtonBox {
+    position: fixed;
+    display: flex;
+    width: 90%;
+    justify-content: space-around;
+    bottom: 10px;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
 }
