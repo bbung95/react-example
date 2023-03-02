@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import FooterTabs from "./components/FooterTabs"
 
 const StyledFooter = styled.div`
     margin-top: 40px;
@@ -8,7 +9,11 @@ const StyledFooter = styled.div`
 `
 
 const Footer = () => {
-    return <StyledFooter>Footer</StyledFooter>
+    return (
+        <StyledFooter>
+            <FooterTabs />
+        </StyledFooter>
+    )
 }
 
 export default Footer
