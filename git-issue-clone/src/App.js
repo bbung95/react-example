@@ -1,8 +1,8 @@
 import style from "./App.css"
-import Header from "./components/Header"
-import Nav from "./components/Nav"
-import ListContainer from "./components/ListContainer"
-import Footer from "./components/Footer"
+import Header from "./Header"
+import Nav from "./Nav"
+import ListContainer from "./ListContainer"
+import Footer from "./Footer"
 
 const App = () => {
     return (
