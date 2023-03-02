@@ -1,40 +1,42 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 function Counter() {
-    const operators = ["+", "-", "*"];
+  const operators = ["+", "-", "*"]
 
-    const [info, setInfo] = useState({
-        count: 0,
-        show: true,
-        operator: operators[0],
-    });
+  const [info, setInfo] = useState({
+    count: 0,
+    show: true,
+    operator: operators[0],
+  })
 
-    return (
-        <div>
-            <button
-                onClick={() => {
-                    let result = info.count;
-                    if (info.operator === "+") result += 1;
-                    if (info.operator === "-") result -= 1;
-                    if (info.operator === "*") result *= 1;
-                    setInfo({ ...info, count: result });
-                }}
-            >
-                {info.operator}1
-            </button>
-            <button onClick={() => setInfo({ ...info, show: !info.show })}>Show and Hide</button>
-            <button
-                onClick={() => {
-                    const idx = Math.floor(Math.random() * operators.length);
-                    setInfo({ ...info, operator: operators[idx] });
-                }}
-            >
-                Change Operator
-            </button>
-            <br />
-            {info.show && `Counter : ${info.count}`}
-        </div>
-    );
+  return (
+    <div>
+      <button
+        onClick={() => {
+          let result = info.count
+          if (info.operator === "+") result += 1
+          if (info.operator === "-") result -= 1
+          if (info.operator === "*") result *= 1
+          setInfo({ ...info, count: result })
+        }}
+      >
+        {info.operator}1
+      </button>
+      <button onClick={() => setInfo({ ...info, show: !info.show })}>
+        Show and Hide
+      </button>
+      <button
+        onClick={() => {
+          const idx = Math.floor(Math.random() * operators.length)
+          setInfo({ ...info, operator: operators[idx] })
+        }}
+      >
+        Change Operator
+      </button>
+      <br />
+      {info.show && `Counter : ${info.count}`}
+    </div>
+  )
 }
 
-export default Counter;
+export default Counter

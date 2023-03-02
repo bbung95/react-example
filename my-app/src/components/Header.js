@@ -1,5 +1,5 @@
-import React from "react";
-import logo from "../logo.svg";
+import React from "react"
+import logo from "../logo.svg"
 
 function Header({ message }) {
     return (
@@ -9,13 +9,18 @@ function Header({ message }) {
                 <p>
                     Edit <code>src/App.js</code> and save to reload.
                 </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
+                <a
+                    className="App-link"
+                    href="https://reactjs.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     {message}
                 </a>
                 {message === "bbung" && "hello"}
             </header>
         </div>
-    );
+    )
 }
 
-export default Header;
+export default Header
