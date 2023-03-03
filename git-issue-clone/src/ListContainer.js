@@ -108,7 +108,9 @@ const ListContainer = () => {
                     </StyledFilterList>
                 </ListItemLayout>
                 <div>
-                    <ListItem></ListItem>
+                    <ListItem
+                        badges={[{ color: "#d73a4a", title: "Bug" }]}
+                    ></ListItem>
                 </div>
             </StyledContentsContainer>
         </StyledListContainer>

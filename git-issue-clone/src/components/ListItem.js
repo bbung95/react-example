@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import Badge from "./Badge"
 import ListItemLayout from "./ListItemLayout"
 
 const StyledTitle = styled.div`
@@ -18,11 +19,13 @@ const StyledDescription = styled.div`
     font-size: 12px;
 `
 
-const ListItem = ({ checked, onChangeCheckBox }) => {
+const ListItem = ({ checked, onChangeCheckBox, badges }) => {
     return (
         <ListItemLayout>
-            <StyledTitle>
+            <StyledTitle role="button">
                 Issue Example
+                {badges &&
+                    badges.map((item, idx) => <Badge key={idx} {...item} />)}
                 <StyledDescription># Desc</StyledDescription>
             </StyledTitle>
         </ListItemLayout>
