@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import Button from "./components/Button"
+import ListItem from "./components/ListItem"
+import ListItemLayout from "./components/ListItemLayout"
 
 const StyledListContainer = styled.div`
     padding: 0 32px;
@@ -13,6 +15,24 @@ const StyledTopContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-left: 40px;
+`
+
+const StyledSearchBar = styled.div`
+    position: relative;
+    width: 60%;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 5px;
+        width: 30px;
+        height: 30px;
+        z-index: 1;
+        background-image: url("icon/search.svg");
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 `
 
 const StyledSearchInput = styled.input`
@@ -32,21 +52,18 @@ const StyledSearchInput = styled.input`
     }
 `
 
-const StyledSearchBar = styled.div`
-    position: relative;
-    width: 60%;
+const StyledContentsContainer = styled.div`
+    margin-top: 20px;
+`
 
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 5px;
-        width: 30px;
-        height: 30px;
-        z-index: 1;
-        background-image: url("icon/search.svg");
-        background-position: center;
-        background-repeat: no-repeat;
+const StyledFilterList = styled.div`
+    padding: 16px;
+    display: flex;
+    align-items: center;
+
+    & > span {
+        padding: 0 16px;
+        line-height: 21px;
     }
 `
 
@@ -75,6 +92,25 @@ const ListContainer = () => {
                     New Issue
                 </Button>
             </StyledTopContainer>
+            <StyledContentsContainer>
+                <ListItemLayout
+                    styleOption={
+                        "border-radius : 10px 10px 0 0; background : rgb(246, 248, 250);"
+                    }
+                >
+                    <StyledFilterList>
+                        <span>Author</span>
+                        <span>Label</span>
+                        <span>Projects</span>
+                        <span>Milestones</span>
+                        <span>Assignee</span>
+                        <span>Sort</span>
+                    </StyledFilterList>
+                </ListItemLayout>
+                <div>
+                    <ListItem></ListItem>
+                </div>
+            </StyledContentsContainer>
         </StyledListContainer>
     )
 }
