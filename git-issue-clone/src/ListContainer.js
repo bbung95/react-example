@@ -3,11 +3,14 @@ import styled from "styled-components"
 import Button from "./components/Button"
 import ListItem from "./components/ListItem"
 import ListItemLayout from "./components/ListItemLayout"
+import OpenClosedFilters from "./components/OpenClosedFilters"
+import ListFilterItem from "./components/ListFilterItem"
+import ListFilterItems from "./components/ListFilterItems"
 
 const StyledListContainer = styled.div`
     padding: 0 32px;
     margin-top: 24px;
-    height: 220px;
+    height: auto;
 `
 
 const StyledTopContainer = styled.div`
@@ -54,21 +57,18 @@ const StyledSearchInput = styled.input`
 
 const StyledContentsContainer = styled.div`
     margin-top: 20px;
+    margin-left: 40px;
 `
 
-const StyledFilterList = styled.div`
-    padding: 16px;
-    display: flex;
-    align-items: center;
-
-    & > span {
-        padding: 0 16px;
-        line-height: 21px;
-    }
-`
+const dataList = [
+    { color: "#d73a4a", title: "Bug" },
+    { color: "#0075ca", title: "documentation" },
+    { color: "#a2eeef", title: "enhancement" },
+]
 
 const ListContainer = () => {
     const [keyword, setKeyword] = useState("is:issue is:open")
+    const [issueDatas, setIssueDatas] = useState(dataList)
 
     const onChangeHandle = (e) => {
         setKeyword(e.target.value)
@@ -93,25 +93,22 @@ const ListContainer = () => {
                 </Button>
             </StyledTopContainer>
             <StyledContentsContainer>
+                <OpenClosedFilters></OpenClosedFilters>
                 <ListItemLayout
                     styleOption={
                         "border-radius : 10px 10px 0 0; background : rgb(246, 248, 250);"
                     }
                 >
-                    <StyledFilterList>
-                        <span>Author</span>
-                        <span>Label</span>
-                        <span>Projects</span>
-                        <span>Milestones</span>
-                        <span>Assignee</span>
-                        <span>Sort</span>
-                    </StyledFilterList>
+                    <ListFilterItems />
                 </ListItemLayout>
-                <div>
-                    <ListItem
-                        badges={[{ color: "#d73a4a", title: "Bug" }]}
-                    ></ListItem>
-                </div>
+                <>
+                    {issueDatas.map((item, idx) => (
+                        <ListItem
+                            key={idx}
+                            badges={[{ color: item.color, title: item.title }]}
+                        />
+                    ))}
+                </>
             </StyledContentsContainer>
         </StyledListContainer>
     )
