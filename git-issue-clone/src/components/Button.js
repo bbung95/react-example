@@ -10,6 +10,10 @@ const StyledButton = styled.button`
     color: ${(props) => props.fontColor || "gray"};
     background: ${(props) => props.backgroundColor || "white"};
     font-size: ${(props) => props.fontSize || "16px"};
+
+    &:hover {
+        opacity: 0.7;
+    }
 `
 
 const StyledIcon = styled.img`

@@ -4,8 +4,8 @@ import Button from "./components/Button"
 import ListItem from "./components/ListItem"
 import ListItemLayout from "./components/ListItemLayout"
 import OpenClosedFilters from "./components/OpenClosedFilters"
-import ListFilterItem from "./components/ListFilterItem"
 import ListFilterItems from "./components/ListFilterItems"
+import Pagenation from "./components/Pagenation"
 
 const StyledListContainer = styled.div`
     padding: 0 32px;
@@ -110,6 +110,7 @@ const ListContainer = () => {
                     ))}
                 </>
             </StyledContentsContainer>
+            <Pagenation currentNumber={1} maxPageCount={5} />
         </StyledListContainer>
     )
 }
