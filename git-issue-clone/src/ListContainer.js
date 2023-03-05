@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import Button from "./components/Button"
 import ListItem from "./components/ListItem"
@@ -6,6 +6,7 @@ import ListItemLayout from "./components/ListItemLayout"
 import OpenClosedFilters from "./components/OpenClosedFilters"
 import ListFilterItems from "./components/ListFilterItems"
 import Pagenation from "./components/Pagenation"
+import api from "./modules/api"
 
 const StyledListContainer = styled.div`
     padding: 0 32px;
@@ -68,11 +69,18 @@ const dataList = [
 
 const ListContainer = () => {
     const [keyword, setKeyword] = useState("is:issue is:open")
-    const [issueDatas, setIssueDatas] = useState(dataList)
+    const [issueDatas, setIssueDatas] = useState([])
 
     const onChangeHandle = (e) => {
         setKeyword(e.target.value)
     }
+
+    useEffect(() => {
+        ;(async () => {
+            const res = await api()
+            setIssueDatas(res.data)
+        })()
+    }, [])
 
     return (
         <StyledListContainer>
@@ -103,10 +111,7 @@ const ListContainer = () => {
                 </ListItemLayout>
                 <>
                     {issueDatas.map((item, idx) => (
-                        <ListItem
-                            key={idx}
-                            badges={[{ color: item.color, title: item.title }]}
-                        />
+                        <ListItem key={idx} info={item} />
                     ))}
                 </>
             </StyledContentsContainer>

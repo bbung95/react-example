@@ -19,14 +19,22 @@ const StyledDescription = styled.div`
     font-size: 12px;
 `
 
-const ListItem = ({ checked, onChangeCheckBox, badges }) => {
+const ListItem = ({ info, checked, onChangeCheckBox }) => {
+    const { title, labels, html_url, number, created_at, updated_at, user } =
+        info
+
+    const desc = `#${number} ${updated_at || created_at} by ${user.login}`
+
     return (
         <ListItemLayout>
-            <StyledTitle role="button">
-                Issue Example
-                {badges &&
-                    badges.map((item, idx) => <Badge key={idx} {...item} />)}
-                <StyledDescription># Desc</StyledDescription>
+            <StyledTitle
+                role="button"
+                onClick={() => (location.href = html_url)}
+            >
+                {title}
+                {labels &&
+                    labels.map((item) => <Badge key={item.id} {...item} />)}
+                <StyledDescription>{desc}</StyledDescription>
             </StyledTitle>
         </ListItemLayout>
     )

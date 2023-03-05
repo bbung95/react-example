@@ -8,13 +8,12 @@ const StyledBadge = styled.span`
     border-radius: 2em;
     padding: 2px 7px;
     margin: 0 5px;
-    color: #fff;
-
-    background: ${(props) => props.color || "red"};
+    color: ${(props) => (props.color === "b60205" ? "#fff" : "#000")};
+    background: #${(props) => props.color};
 `
 
-const Badge = ({ title, color }) => {
-    return <StyledBadge color={color}>{title}</StyledBadge>
+const Badge = ({ name, color }) => {
+    return <StyledBadge color={color}>{name}</StyledBadge>
 }
 
 export default Badge
