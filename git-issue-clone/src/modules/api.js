@@ -11,8 +11,6 @@ const api = async () => {
         },
     })
 
-    console.log(data)
-
     return data
 }
 

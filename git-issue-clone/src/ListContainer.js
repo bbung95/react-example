@@ -61,12 +61,6 @@ const StyledContentsContainer = styled.div`
     margin-left: 40px;
 `
 
-const dataList = [
-    { color: "#d73a4a", title: "Bug" },
-    { color: "#0075ca", title: "documentation" },
-    { color: "#a2eeef", title: "enhancement" },
-]
-
 const ListContainer = () => {
     const [keyword, setKeyword] = useState("is:issue is:open")
     const [issueDatas, setIssueDatas] = useState([])
