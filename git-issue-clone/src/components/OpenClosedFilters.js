@@ -1,11 +1,16 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import OpenClosedFilter from "./OpenClosedFilter"
 
-const OpenClosedFilters = ({ data }) => {
+const OpenClosedFilters = ({ handle }) => {
     const [isOpenMode, setIsOpenMode] = useState(true)
 
     let openDateSize = 0
     let closedDateSize = 0
+
+    useEffect(() => {
+        const mode = isOpenMode ? "open" : "closed"
+        handle("state", mode)
+    }, [isOpenMode])
 
     return (
         <>
@@ -13,13 +18,13 @@ const OpenClosedFilters = ({ data }) => {
                 isOpenMode={isOpenMode}
                 setIsOpenMode={() => setIsOpenMode(true)}
                 title="Open"
-                size={openDateSize}
+                // size={openDateSize}
             ></OpenClosedFilter>
             <OpenClosedFilter
                 isOpenMode={!isOpenMode}
                 setIsOpenMode={() => setIsOpenMode(false)}
                 title="Closed"
-                size={closedDateSize}
+                // size={closedDateSize}
             ></OpenClosedFilter>
         </>
     )

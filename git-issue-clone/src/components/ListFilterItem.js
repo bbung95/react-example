@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import Modal from "./Modal"
+import { fetchIssueFilter } from "../modules/api"
 
 const StyledModalContainer = styled.div`
     position: absolute;
@@ -14,19 +15,36 @@ const StyledFilterItem = styled.div`
 
 const dataList = ["Bug", "Labels", "Ensd"]
 
-const ListFilterItem = ({ children }) => {
-    const [isOpend, setIsOpend] = useState(false)
+const ListFilterItem = ({ children, showModal, handle }) => {
+    const modalOpen = () => {
+        if (showModal === "") {
+            handle(children)
+        } else {
+            modalClose()
+        }
+    }
+
+    const modalClose = () => {
+        handle("")
+    }
+
+    // useEffect(() => {
+    //     ;(async function () {
+    //         const res = await fetchIssueFilter(children)
+    //         console.log(res)
+    //     })()
+    // }, [])
 
     return (
         <StyledFilterItem>
-            <span role="button" onClick={() => setIsOpend(true)}>
+            <span role="button" onClick={modalOpen}>
                 {children} ▾
             </span>
             <StyledModalContainer>
                 <Modal
                     title={children}
-                    opend={isOpend}
-                    onClose={() => setIsOpend(false)}
+                    opend={showModal === children}
+                    onClose={modalClose}
                     placeholder="Filter labels"
                     searchDataList={dataList}
                 />

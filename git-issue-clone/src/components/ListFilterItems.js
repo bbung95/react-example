@@ -21,15 +21,30 @@ const StyledFilterList = styled.div`
         }
     }
 `
+
+const filterItems = [
+    // "Author",
+    "Label",
+    // "Projects",
+    // "Milestones",
+    // "Assignee",
+    // "Sort",
+]
+
 const ListFilterItems = () => {
+    const [showModal, setShowModal] = useState("")
+
     return (
         <StyledFilterList>
-            <ListFilterItem>Author</ListFilterItem>
-            <ListFilterItem>Label</ListFilterItem>
-            <ListFilterItem>Projects</ListFilterItem>
-            <ListFilterItem>Milestones</ListFilterItem>
-            <ListFilterItem>Assignee</ListFilterItem>
-            <ListFilterItem>Sort</ListFilterItem>
+            {filterItems.map((item) => (
+                <ListFilterItem
+                    key={item}
+                    showModal={showModal}
+                    handle={setShowModal}
+                >
+                    {item}
+                </ListFilterItem>
+            ))}
         </StyledFilterList>
     )
 }

@@ -6,7 +6,7 @@ import ListItemLayout from "./components/ListItemLayout"
 import OpenClosedFilters from "./components/OpenClosedFilters"
 import ListFilterItems from "./components/ListFilterItems"
 import Pagenation from "./components/Pagenation"
-import api from "./modules/api"
+import { fetchIssueList } from "./modules/api"
 
 const StyledListContainer = styled.div`
     padding: 0 32px;
@@ -64,17 +64,29 @@ const StyledContentsContainer = styled.div`
 const ListContainer = () => {
     const [keyword, setKeyword] = useState("is:issue is:open")
     const [issueDatas, setIssueDatas] = useState([])
+    const [searchParam, setSearchParam] = useState({
+        page: 1,
+        state: "open",
+        perPage: 25,
+    })
 
     const onChangeHandle = (e) => {
         setKeyword(e.target.value)
     }
 
+    const handleSearchParam = (target, value) => {
+        const newState = { ...searchParam }
+        newState[target] = value
+
+        setSearchParam({ ...newState })
+    }
+
     useEffect(() => {
         ;(async () => {
-            const res = await api()
-            setIssueDatas(res.data)
+            const { data } = await fetchIssueList(searchParam)
+            setIssueDatas(data)
         })()
-    }, [])
+    }, [searchParam])
 
     return (
         <StyledListContainer>
@@ -95,7 +107,9 @@ const ListContainer = () => {
                 </Button>
             </StyledTopContainer>
             <StyledContentsContainer>
-                <OpenClosedFilters></OpenClosedFilters>
+                <OpenClosedFilters
+                    handle={handleSearchParam}
+                ></OpenClosedFilters>
                 <ListItemLayout
                     styleOption={
                         "border-radius : 10px 10px 0 0; background : rgb(246, 248, 250);"
@@ -109,7 +123,11 @@ const ListContainer = () => {
                     ))}
                 </>
             </StyledContentsContainer>
-            <Pagenation currentNumber={1} maxPageCount={5} />
+            <Pagenation
+                currentNumber={searchParam.page}
+                maxPageCount={5}
+                handle={handleSearchParam}
+            />
         </StyledListContainer>
     )
 }

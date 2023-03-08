@@ -41,7 +41,7 @@ const StyledNumberButton = styled.button`
     }
 `
 
-const Pagenation = ({ currentNumber, maxPageCount }) => {
+const Pagenation = ({ currentNumber, maxPageCount, handle }) => {
     const [pageInfo, setPageInfo] = useState({
         curNum: currentNumber || 1,
         maxPage: maxPageCount || 1,
@@ -50,6 +50,7 @@ const Pagenation = ({ currentNumber, maxPageCount }) => {
     const onClickPageNumber = (e) => {
         let num = Number(e.target.value)
         setPageInfo({ ...pageInfo, curNum: num })
+        handle("page", num)
     }
 
     const prevPage = () => {

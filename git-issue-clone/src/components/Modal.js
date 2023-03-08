@@ -60,7 +60,7 @@ const Modal = ({ opend, title, onClose, placeholder, searchDataList = [] }) => {
     return (
         <StyledModalLayout isOpend={opend}>
             <StyledModalHeader>
-                <span>{title}</span>
+                <span>Filter by {title}</span>
                 <button type="button" onClick={onClose}>
                     X
                 </button>

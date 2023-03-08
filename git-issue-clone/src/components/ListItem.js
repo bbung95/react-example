@@ -2,6 +2,9 @@ import React from "react"
 import styled from "styled-components"
 import Badge from "./Badge"
 import ListItemLayout from "./ListItemLayout"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
+dayjs.extend(relativeTime)
 
 const StyledTitle = styled.div`
     font-size: 16px;
@@ -20,10 +23,19 @@ const StyledDescription = styled.div`
 `
 
 const ListItem = ({ info, checked, onChangeCheckBox }) => {
-    const { title, labels, html_url, number, created_at, updated_at, user } =
-        info
+    const {
+        title,
+        labels,
+        html_url,
+        number,
+        created_at,
+        closed_at,
+        user,
+        state,
+    } = info
 
-    const desc = `#${number} ${updated_at || created_at} by ${user.login}`
+    const date = state === "open" ? created_at : closed_at
+    const status = state === "open" ? "opend" : "closed"
 
     return (
         <ListItemLayout>
@@ -34,7 +46,9 @@ const ListItem = ({ info, checked, onChangeCheckBox }) => {
                 {title}
                 {labels &&
                     labels.map((item) => <Badge key={item.id} {...item} />)}
-                <StyledDescription>{desc}</StyledDescription>
+                <StyledDescription>
+                    #{number} {status} {dayjs(date).fromNow()} by {user.login}
+                </StyledDescription>
             </StyledTitle>
         </ListItemLayout>
     )
