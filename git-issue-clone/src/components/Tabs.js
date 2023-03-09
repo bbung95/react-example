@@ -23,13 +23,17 @@ const StyledCircleBox = styled.div`
 `
 
 const tabList = [
-    { title: "Code", src: "icon/code.svg", path: "code" },
-    { title: "Issue", src: "icon/circle.svg", number: 1, path: "issue" },
-    { title: "Pull requests", src: "icon/bezier2.svg", path: "pull" },
-    { title: "Actions", src: "icon/play.svg", path: "action" },
-    { title: "Projects", src: "icon/columns.svg", path: "project" },
-    { title: "Security", src: "icon/shield-exclamation.svg", path: "security" },
-    { title: "Insights", src: "icon/graph-up.svg", path: "insight" },
+    { title: "Code", src: "/icon/code.svg", path: "code" },
+    { title: "Issue", src: "/icon/circle.svg", number: 1, path: "issue" },
+    { title: "Pull requests", src: "/icon/bezier2.svg", path: "pull" },
+    { title: "Actions", src: "/icon/play.svg", path: "action" },
+    { title: "Projects", src: "/icon/columns.svg", path: "project" },
+    {
+        title: "Security",
+        src: "/icon/shield-exclamation.svg",
+        path: "security",
+    },
+    { title: "Insights", src: "/icon/graph-up.svg", path: "insight" },
 ]
 
 const Tabs = () => {

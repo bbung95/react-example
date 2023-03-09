@@ -35,7 +35,7 @@ const Header = () => {
                     fontColor={"black"}
                     fontSize={"14px"}
                     backgroundColor={"transparent"}
-                    src="./icon/eye.svg"
+                    src="/icon/eye.svg"
                 >
                     Watch
                 </Button>
@@ -43,7 +43,7 @@ const Header = () => {
                     fontColor={"black"}
                     fontSize={"14px"}
                     backgroundColor={"transparent"}
-                    src="./icon/diagram-2.svg"
+                    src="/icon/diagram-2.svg"
                 >
                     Fork <StyledCircleBox>5</StyledCircleBox>
                 </Button>
@@ -51,7 +51,7 @@ const Header = () => {
                     fontColor={"black"}
                     fontSize={"14px"}
                     backgroundColor={"transparent"}
-                    src="./icon/star.svg"
+                    src="/icon/star.svg"
                 >
                     Star
                 </Button>

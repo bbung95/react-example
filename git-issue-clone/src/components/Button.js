@@ -14,18 +14,30 @@ const StyledButton = styled.button`
     &:hover {
         opacity: 0.7;
     }
+
+    background: ${(props) => props.active && "#2da44e"};
 `
 
 const StyledIcon = styled.img`
     margin-right: 8px;
 `
 
-const Button = ({ backgroundColor, fontColor, fontSize, src, children }) => {
+const Button = ({
+    backgroundColor,
+    fontColor,
+    fontSize,
+    src,
+    children,
+    onClick,
+    active,
+}) => {
     return (
         <StyledButton
             backgroundColor={backgroundColor}
             fontColor={fontColor}
             fontSize={fontSize}
+            onClick={onClick}
+            active={active ? active : false}
         >
             {src && <StyledIcon src={src} />}
             {children}

@@ -56,7 +56,7 @@ const StyledNavTabs = styled.ul`
 const Nav = () => {
     return (
         <StyledNav>
-            <img src="./logo192.png" width={30} />
+            <img src="/logo192.png" width={30} />
             <StyledNavInput type="text" placeholder="Search or jump to...." />
             <StyledNavTabs>
                 <li>Pull request</li>

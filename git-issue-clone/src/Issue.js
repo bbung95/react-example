@@ -7,10 +7,12 @@ import OpenClosedFilters from "./components/OpenClosedFilters"
 import ListFilterItems from "./components/ListFilterItems"
 import Pagenation from "./components/Pagenation"
 import { fetchIssueList } from "./modules/api"
+import { useNavigate } from "react-router-dom"
 
 const StyledListContainer = styled.div`
-    padding: 0 32px;
-    margin-top: 24px;
+    margin: 0 auto;
+    margin-top: 12px;
+    max-width: 1250px;
     height: auto;
 `
 
@@ -71,6 +73,8 @@ const ListContainer = () => {
         labels: [],
     })
 
+    const navigator = useNavigate()
+
     const onChangeHandle = (e) => {
         setKeyword(e.target.value)
     }
@@ -103,6 +107,7 @@ const ListContainer = () => {
                     fontColor={"white"}
                     fontSize={"14px"}
                     backgroundColor={"green"}
+                    onClick={() => navigator("/issue/new")}
                 >
                     New Issue
                 </Button>
