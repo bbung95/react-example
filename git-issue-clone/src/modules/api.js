@@ -2,12 +2,14 @@ import axios from "axios"
 
 const endpoint = "https://api.github.com"
 
-export const fetchIssueList = async ({ page, state, perPage }) => {
+export const fetchIssueList = async ({ page, state, perPage, labels }) => {
+    console.log(labels.join(","))
     const data = await axios.get(`${endpoint}/repos/facebook/react/issues`, {
         params: {
             page: page,
             state: state,
             per_page: perPage,
+            labels: labels.join(","),
         },
     })
 
@@ -16,7 +18,12 @@ export const fetchIssueList = async ({ page, state, perPage }) => {
 
 export const fetchIssueFilter = async (target) => {
     const data = await axios.get(
-        `${endpoint}/repos/facebook/react/issues/${target.toLowerCase()}`,
+        `${endpoint}/repos/facebook/react/${target.toLowerCase()}s`,
+        {
+            params: {
+                per_page: 100,
+            },
+        },
     )
 
     return data

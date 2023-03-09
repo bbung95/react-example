@@ -31,7 +31,7 @@ const filterItems = [
     // "Sort",
 ]
 
-const ListFilterItems = () => {
+const ListFilterItems = ({ handle, searchParam }) => {
     const [showModal, setShowModal] = useState("")
 
     return (
@@ -41,6 +41,8 @@ const ListFilterItems = () => {
                     key={item}
                     showModal={showModal}
                     handle={setShowModal}
+                    searchHandle={handle}
+                    searchParam={searchParam}
                 >
                     {item}
                 </ListFilterItem>

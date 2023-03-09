@@ -68,6 +68,7 @@ const ListContainer = () => {
         page: 1,
         state: "open",
         perPage: 25,
+        labels: [],
     })
 
     const onChangeHandle = (e) => {
@@ -115,7 +116,10 @@ const ListContainer = () => {
                         "border-radius : 10px 10px 0 0; background : rgb(246, 248, 250);"
                     }
                 >
-                    <ListFilterItems />
+                    <ListFilterItems
+                        handle={handleSearchParam}
+                        searchParam={searchParam}
+                    />
                 </ListItemLayout>
                 <>
                     {issueDatas.map((item, idx) => (

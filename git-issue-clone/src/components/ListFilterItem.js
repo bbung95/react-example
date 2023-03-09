@@ -13,9 +13,15 @@ const StyledFilterItem = styled.div`
     position: relative;
 `
 
-const dataList = ["Bug", "Labels", "Ensd"]
+const ListFilterItem = ({
+    children,
+    showModal,
+    handle,
+    searchHandle,
+    searchParam,
+}) => {
+    const [tabs, setTabs] = useState([])
 
-const ListFilterItem = ({ children, showModal, handle }) => {
     const modalOpen = () => {
         if (showModal === "") {
             handle(children)
@@ -28,12 +34,12 @@ const ListFilterItem = ({ children, showModal, handle }) => {
         handle("")
     }
 
-    // useEffect(() => {
-    //     ;(async function () {
-    //         const res = await fetchIssueFilter(children)
-    //         console.log(res)
-    //     })()
-    // }, [])
+    useEffect(() => {
+        ;(async function () {
+            const { data } = await fetchIssueFilter(children)
+            setTabs(data)
+        })()
+    }, [])
 
     return (
         <StyledFilterItem>
@@ -46,7 +52,9 @@ const ListFilterItem = ({ children, showModal, handle }) => {
                     opend={showModal === children}
                     onClose={modalClose}
                     placeholder="Filter labels"
-                    searchDataList={dataList}
+                    searchDataList={tabs}
+                    searchHandle={searchHandle}
+                    searchParam={searchParam}
                 />
             </StyledModalContainer>
         </StyledFilterItem>
