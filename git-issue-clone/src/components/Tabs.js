@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useLocation, Link } from "react-router-dom"
 import styled from "styled-components"
 import Tab from "./Tab"
 
@@ -22,36 +23,43 @@ const StyledCircleBox = styled.div`
 `
 
 const tabList = [
-    { title: "Code", src: "icon/code.svg" },
-    { title: "Issue", src: "icon/circle.svg", number: 1 },
-    { title: "Pull requests", src: "icon/bezier2.svg" },
-    { title: "Actions", src: "icon/play.svg" },
-    { title: "Projects", src: "icon/columns.svg" },
-    { title: "Security", src: "icon/shield-exclamation.svg" },
-    { title: "Insights", src: "icon/graph-up.svg" },
+    { title: "Code", src: "icon/code.svg", path: "code" },
+    { title: "Issue", src: "icon/circle.svg", number: 1, path: "issue" },
+    { title: "Pull requests", src: "icon/bezier2.svg", path: "pull" },
+    { title: "Actions", src: "icon/play.svg", path: "action" },
+    { title: "Projects", src: "icon/columns.svg", path: "project" },
+    { title: "Security", src: "icon/shield-exclamation.svg", path: "security" },
+    { title: "Insights", src: "icon/graph-up.svg", path: "insight" },
 ]
 
 const Tabs = () => {
-    const [selectedTab, setSelectdTab] = useState(0)
+    const [selectedTab, setSelectdTab] = useState("")
+
+    const location = useLocation()
 
     const onClickTab = (idx) => {
         setSelectdTab(idx)
     }
 
+    useEffect(() => {
+        setSelectdTab(location.pathname.replace("/", ""))
+    })
+
     return (
         <StyledTabList>
             {tabList.map((item, index) => (
-                <Tab
-                    key={index}
-                    src={item.src}
-                    selected={index === selectedTab && true}
-                    onClickHandler={() => onClickTab(index)}
-                >
-                    {item.title}
-                    {item.number && (
-                        <StyledCircleBox>{item.number}</StyledCircleBox>
-                    )}
-                </Tab>
+                <Link to={item.path} key={index}>
+                    <Tab
+                        src={item.src}
+                        selected={item.path === selectedTab && true}
+                        onClickHandler={() => onClickTab(index)}
+                    >
+                        {item.title}
+                        {item.number && (
+                            <StyledCircleBox>{item.number}</StyledCircleBox>
+                        )}
+                    </Tab>
+                </Link>
             ))}
         </StyledTabList>
     )
