@@ -1,6 +1,13 @@
 import React, { useState } from "react"
 
-export const useForm = ({ initialize, onSubmit, refs, validate }) => {
+export const useForm = ({
+    initialize,
+    onSubmit,
+    onSuccess,
+    onError,
+    refs,
+    validate,
+}) => {
     const [formData, setFormData] = useState(initialize)
     const [isSubmiting, setIsSubmiting] = useState(false)
 
@@ -8,7 +15,7 @@ export const useForm = ({ initialize, onSubmit, refs, validate }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault()
 
         if (isSubmiting) {
@@ -27,10 +34,15 @@ export const useForm = ({ initialize, onSubmit, refs, validate }) => {
             return
         }
 
-        // const res = fetchIssueAdd(formData.title, formData.contents)
-        // console.log(res)
-        onSubmit()
-        setIsSubmiting(false)
+        if (errorsKeys.length === 0) {
+            try {
+                const res = await onSubmit(formData)
+                onSuccess(res)
+            } catch (e) {
+            } finally {
+                setIsSubmiting(false)
+            }
+        }
     }
 
     return {

@@ -1,9 +1,11 @@
-import React, { useRef, useState } from "react"
+import React, { useContext, useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./components/Button"
 import TextInput from "./components/TextInput"
 import { useForm } from "./hooks/hooks"
 import { fetchIssueAdd } from "./modules/api"
+import { useNavigate } from "react-router-dom"
+import UserContext from "./store/UserContext"
 
 const StyledAddContainer = styled.div`
     box-sizing: content-box;
@@ -96,15 +98,17 @@ const validate = (inputValues) => {
 
 const IssueAdd = () => {
     const [acctiveTab, setActiveTab] = useState("Write")
+    const navigate = useNavigate()
+    // const user = useContext(UserContext)
 
     const inputRef = useRef()
-    const { formData, handleOnChange, handleOnSubmit, onSuccess, onErrors } =
-        useForm({
-            initialize: { title: "", body: "" },
-            onSubmit: () => console.log("성공"),
-            refs: { title: inputRef },
-            validate,
-        })
+    const { formData, handleOnChange, handleOnSubmit } = useForm({
+        initialize: { title: "", body: "" },
+        onSubmit: fetchIssueAdd,
+        onSuccess: (res) => navigate("/issue", { replace: true }),
+        refs: { title: inputRef },
+        validate,
+    })
 
     return (
         <StyledAddContainer>

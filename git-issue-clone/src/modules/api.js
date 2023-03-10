@@ -3,7 +3,7 @@ import axios from "axios"
 const endpoint = "https://api.github.com"
 
 export const fetchIssueList = async ({ page, state, perPage, labels }) => {
-    const data = await axios.get(`${endpoint}/repos/facebook/react/issues`, {
+    const res = await axios.get(`${endpoint}/repos/facebook/react/issues`, {
         params: {
             page: page,
             state: state,
@@ -12,11 +12,11 @@ export const fetchIssueList = async ({ page, state, perPage, labels }) => {
         },
     })
 
-    return data
+    return res
 }
 
 export const fetchIssueFilter = async (target) => {
-    const data = await axios.get(
+    const res = await axios.get(
         `${endpoint}/repos/facebook/react/${target.toLowerCase()}s`,
         {
             params: {
@@ -25,19 +25,33 @@ export const fetchIssueFilter = async (target) => {
         },
     )
 
-    return data
+    return res
 }
 
-export const fetchIssueAdd = async (title, body) => {
-    const data = await axios.post(
+export const fetchIssueAdd = async ({ title, body }) => {
+    const res = await axios.post(
         `${endpoint}/repos/bbung95/react-example/issues`,
         {
-            data: {
-                title: title,
-                body: body,
+            title: title,
+            body: body,
+        },
+        {
+            headers: {
+                Authorization: process.env.REACT_APP_GITHUB_TOKEN,
+                "Content-Type": "applications/json",
             },
         },
     )
 
-    return data
+    return res
+}
+
+export const fetchUserInfo = async () => {
+    const res = await axios.get(`${endpoint}/user`, {
+        headers: {
+            Authorization: process.env.REACT_APP_GITHUB_TOKEN,
+            "Content-Type": "applications/json",
+        },
+    })
+    return res
 }

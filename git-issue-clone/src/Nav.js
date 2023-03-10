@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useContext } from "react"
 import styled from "styled-components"
+import UserContext from "./store/UserContext"
 
 const StyledNav = styled.div`
     display: flex;
@@ -55,7 +56,17 @@ const StyledNavTabs = styled.ul`
     }
 `
 
+const StyledUser = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+`
+
 const Nav = () => {
+    const user = useContext(UserContext)
+    console.log(user)
+
     return (
         <StyledNav>
             <img src="/logo192.png" width={30} />
@@ -67,6 +78,21 @@ const Nav = () => {
                 <li>Marketplace</li>
                 <li>Explore</li>
             </StyledNavTabs>
+            <StyledUser>
+                {user && (
+                    <>
+                        <div style={{ color: "#fff", marginRight: "10px" }}>
+                            {user.login}
+                        </div>
+                        <div>
+                            <img
+                                style={{ width: "25px", borderRadius: "50%" }}
+                                src={user.avatar_url}
+                            />
+                        </div>
+                    </>
+                )}
+            </StyledUser>
         </StyledNav>
     )
 }
