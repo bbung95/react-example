@@ -27,3 +27,17 @@ export const fetchIssueFilter = async (target) => {
 
     return data
 }
+
+export const fetchIssueAdd = async (title, body) => {
+    const data = await axios.post(
+        `${endpoint}/repos/bbung95/react-example/issues`,
+        {
+            data: {
+                title: title,
+                body: body,
+            },
+        },
+    )
+
+    return data
+}

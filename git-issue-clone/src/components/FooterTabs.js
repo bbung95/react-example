@@ -8,6 +8,7 @@ const StyledLinkList = styled.ul`
     font-size: 12px;
     list-style: none;
     white-space: nowrap;
+    overflow: auto;
 
     & li:last-child {
         margin-right: 0px;

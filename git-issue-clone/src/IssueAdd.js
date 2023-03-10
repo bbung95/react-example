@@ -1,6 +1,9 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import styled from "styled-components"
 import Button from "./components/Button"
+import TextInput from "./components/TextInput"
+import { useForm } from "./hooks/hooks"
+import { fetchIssueAdd } from "./modules/api"
 
 const StyledAddContainer = styled.div`
     box-sizing: content-box;
@@ -19,10 +22,11 @@ const StyledContentBox = styled.div`
 
 const StyledHeader = styled.div`
     padding: 10px;
+    max-width: calc(1230px);
 
     & > input {
-        width: calc(1230px - 10px);
-        padding-left: 10px;
+        padding: 5px 10px;
+        width: calc(100% - 20px);
         height: 26px;
         background: #f6f8fa;
         border: 1px solid lightgray;
@@ -32,10 +36,11 @@ const StyledHeader = styled.div`
 
 const StyledBody = styled.div`
     padding: 10px;
+    max-width: calc(1230px);
 
     & > textarea {
-        width: calc(1230px - 20px);
         padding: 10px;
+        width: calc(100% - 20px);
         height: 200px;
         background: #f6f8fa;
         border: 1px solid lightgray;
@@ -53,7 +58,7 @@ const StyledTabs = styled.div`
         position: absolute;
         left: -10px;
         bottom: 0;
-        width: 1250px;
+        width: calc(100% + 20px);
         height: 1px;
         background: lightgray;
     }
@@ -80,68 +85,74 @@ const StyledFooter = styled.div`
     justify-content: flex-end;
 `
 
+const validate = (inputValues) => {
+    let errors = {}
+    if (inputValues.title === "") {
+        errors = { title: "타이틀값을 넣어주세요." }
+    }
+
+    return errors
+}
+
 const IssueAdd = () => {
     const [acctiveTab, setActiveTab] = useState("Write")
-    const [formData, setFormData] = useState({
-        title: "",
-        contents: "",
-    })
 
-    const handleOnChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
-
-    const formSubmit = () => {
-        if (formData.title === "") return
-
-        console.log(formData)
-    }
+    const inputRef = useRef()
+    const { formData, handleOnChange, handleOnSubmit, onSuccess, onErrors } =
+        useForm({
+            initialize: { title: "", body: "" },
+            onSubmit: () => console.log("성공"),
+            refs: { title: inputRef },
+            validate,
+        })
 
     return (
         <StyledAddContainer>
             <StyledContentBox>
-                <StyledHeader>
-                    <input
-                        name="title"
-                        type="text"
-                        placeholder="Title"
-                        value={formData.title}
-                        onChange={handleOnChange}
-                    />
-                </StyledHeader>
-                <StyledBody>
-                    <StyledTabs>
-                        <StyledTab
-                            active={acctiveTab === "Write"}
-                            onClick={() => setActiveTab("Write")}
-                        >
-                            Write
-                        </StyledTab>
-                        <StyledTab
-                            active={acctiveTab === "Preview"}
-                            onClick={() => setActiveTab("Preview")}
-                        >
-                            Preview
-                        </StyledTab>
-                    </StyledTabs>
-                    <textarea
-                        name="contents"
-                        onChange={handleOnChange}
-                        placeholder="Leave a comment"
-                        defaultValue={formData.contents}
-                    ></textarea>
-                    <StyledFooter>
-                        <Button
-                            backgroundColor="#94d3a2"
-                            fontColor="#fff"
-                            fontSize="12px"
-                            active={formData.title !== ""}
-                            onClick={() => formSubmit()}
-                        >
-                            Submit new issue
-                        </Button>
-                    </StyledFooter>
-                </StyledBody>
+                <form>
+                    <StyledHeader>
+                        <TextInput
+                            placeholder="Tilte"
+                            name="title"
+                            value={formData.title}
+                            onChange={handleOnChange}
+                            ref={inputRef}
+                        />
+                    </StyledHeader>
+                    <StyledBody>
+                        <StyledTabs>
+                            <StyledTab
+                                active={acctiveTab === "Write"}
+                                onClick={() => setActiveTab("Write")}
+                            >
+                                Write
+                            </StyledTab>
+                            <StyledTab
+                                active={acctiveTab === "Preview"}
+                                onClick={() => setActiveTab("Preview")}
+                            >
+                                Preview
+                            </StyledTab>
+                        </StyledTabs>
+                        <TextInput
+                            type="textarea"
+                            name="body"
+                            placeholder="Leave a comment"
+                            onChange={handleOnChange}
+                        />
+                        <StyledFooter>
+                            <Button
+                                backgroundColor="#94d3a2"
+                                fontColor="#fff"
+                                fontSize="12px"
+                                active={formData.title !== ""}
+                                onClick={handleOnSubmit}
+                            >
+                                Submit new issue
+                            </Button>
+                        </StyledFooter>
+                    </StyledBody>
+                </form>
             </StyledContentBox>
         </StyledAddContainer>
     )

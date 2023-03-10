@@ -39,6 +39,7 @@ const StyledNavTabs = styled.ul`
     display: flex;
     padding: 0;
     margin-left: 20px;
+    overflow: auto;
 
     & li {
         cursor: pointer;
@@ -46,6 +47,7 @@ const StyledNavTabs = styled.ul`
         color: #fff;
         font-size: 14px;
         font-weight: bold;
+        white-space: nowrap;
 
         &:hover {
             color: rgba(255, 255, 255, 0.7);
