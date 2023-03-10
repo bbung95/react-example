@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import styled from "styled-components"
-import UserContext from "./store/UserContext"
+import { useUser } from "./hooks/hooks"
+// import UserContext from "./store/UserContext"
 
 const StyledNav = styled.div`
     display: flex;
@@ -64,8 +65,16 @@ const StyledUser = styled.div`
 `
 
 const Nav = () => {
-    const user = useContext(UserContext)
-    console.log(user)
+    /**
+     * Context-API
+     * const user = useContext(UserContext)
+     */
+
+    const { data, isLoading } = useUser()
+    let user = ""
+    if (!isLoading) {
+        user = data.data
+    }
 
     return (
         <StyledNav>
@@ -79,7 +88,7 @@ const Nav = () => {
                 <li>Explore</li>
             </StyledNavTabs>
             <StyledUser>
-                {user && (
+                {!isLoading && (
                     <>
                         <div style={{ color: "#fff", marginRight: "10px" }}>
                             {user.login}

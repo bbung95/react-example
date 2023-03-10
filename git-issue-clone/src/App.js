@@ -3,44 +3,43 @@ import Nav from "./Nav"
 import Issue from "./Issue"
 import IssueAdd from "./IssueAdd"
 import Footer from "./Footer"
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { fetchUserInfo } from "./modules/api"
-import UserContext from "./store/UserContext"
-
+// import UserContext from "./store/UserContext"
+import { QueryClient, QueryClientProvider } from "react-query"
 const App = () => {
-    const location = useLocation()
-    const navigation = useNavigate()
-    const [user, setUser] = useState()
+    // const [user, setUser] = useState()
 
-    useEffect(() => {
-        if (location.pathname == "/") {
-            navigation("code")
-        }
+    const queryClient = new QueryClient()
 
-        ;(async function () {
-            const { data } = await fetchUserInfo()
-            setUser(data)
-        })()
-    }, [])
+    // useEffect(() => {
+    //     ;(async function () {
+    //         const { data } = await fetchUserInfo()
+    //         setUser(data)
+    //     })()
+    // }, [])
 
     return (
         <>
-            <UserContext.Provider value={user}>
+            {/* <UserContext.Provider value={user}> */}
+            <QueryClientProvider client={queryClient}>
                 <Nav />
                 <Header />
                 <Routes>
                     <Route path="/code" element={<div>code</div>} />
+                    <Route path="/" element={<Issue />} />
                     <Route path="/issue" element={<Issue />} />
                     <Route path="/issue/new" element={<IssueAdd />} />
-                    <Route path="/pull" element={<>pull requests</>} />
-                    <Route path="/action" element={<>actions</>} />
-                    <Route path="/project" element={<>projects</>} />
-                    <Route path="/security" element={<>security</>} />
-                    <Route path="/insight" element={<>insights</>} />
+                    <Route path="/pull" element={<div>pull requests</div>} />
+                    <Route path="/action" element={<div>actions</div>} />
+                    <Route path="/project" element={<div>projects</div>} />
+                    <Route path="/security" element={<div>security</div>} />
+                    <Route path="/insight" element={<div>insights</div>} />
                 </Routes>
                 <Footer />
-            </UserContext.Provider>
+            </QueryClientProvider>
+            {/* </UserContext.Provider> */}
         </>
     )
 }

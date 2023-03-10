@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useQuery } from "react-query"
+import { fetchUserInfo } from "../modules/api"
 
 export const useForm = ({
     initialize,
@@ -50,4 +52,26 @@ export const useForm = ({
         handleOnChange,
         handleOnSubmit,
     }
+}
+
+/**
+export const useUser = () => {
+    const [user, setUser] = useState()
+
+    useEffect(() => {
+        ;(async function () {
+            const { data } = await fetchUserInfo()
+            setUser(data)
+            console.log(user)
+        })()
+    }, [])
+
+    return user
+}
+*/
+
+export const useUser = () => {
+    return useQuery(["userInfo"], () => fetchUserInfo(), {
+        staleTime: "Infinity",
+    })
 }
