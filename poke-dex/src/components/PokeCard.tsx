@@ -1,14 +1,10 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PokemonResponseProps } from '../module/api';
 import PokeNameChip from './PokeNameChip';
 
-interface PokeCardProps{
-  name : string
-}
-
-const PokeCard = ({name} : PokeCardProps) => {
+const PokeCard = ({info} : {info : PokemonResponseProps}) => {
 
   const navigation = useNavigate();
 
@@ -17,13 +13,13 @@ const PokeCard = ({name} : PokeCardProps) => {
   }
 
   return (
-      <Card role="button" onClick={() => handleOnClickCard(name)}>
+      <Card role="button" onClick={() => handleOnClickCard(info.name)}>
         <Header>
-            <PokeNameChip number={"002"} color="green">
-              {name}
+            <PokeNameChip number={info.id} color={info.color}>
+              {info.name}
             </PokeNameChip>
         </Header>
-        <Image src="https://via.placeholder.com/200"/>
+        <Image src={info.sprites.other?.['official-artwork'].front_default}/>
         <Desc><span>Pokémon</span></Desc>
       </Card>
   );
@@ -37,7 +33,10 @@ const Header = styled.div`
   gap: 5px;
 `
 
-const Image = styled.img``
+const Image = styled.img`
+  width : 90%;
+  margin: 0 auto;
+`
 
 const Desc = styled.div`
   display: flex;
@@ -62,6 +61,10 @@ const Card = styled.li`
   height: 300px;
   border: 1px solid #c0c0c0;
   box-shadow: 1px 1px 3px 1px #c0c0c0;
+
+  &:hover{
+    background-color: #e4e4e4;
+  }
 `
 
 export default PokeCard;

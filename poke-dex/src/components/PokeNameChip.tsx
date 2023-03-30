@@ -1,16 +1,18 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { formatChipNumber } from '../utils/numberFormat';
 
 interface ChipProps {
   color : string;
-  number : string;
+  number : number;
   children : string;
 }
 
 const PokeNumberChip = ({color, number, children} : ChipProps) => {
+
   return (
       <Title>
-        <Chip color={color}>{number}</Chip>
+        <Chip color={color}>{formatChipNumber(number)}</Chip>
         {children}
       </Title>
   );

@@ -1,14 +1,17 @@
 import axios from "axios"
 import { API_URL } from "../constants/constant"
 
-export interface PokemonListResponseProps {
-  count : number,
-  next : string,
-  results : []
+export interface PagesProps{
+  page : number
 }
 
-export const fecthGetPokemonList = async () => {
-    const res = await axios.get(`${API_URL}/pokemon`);
+export const fecthGetPokemonList = async (pages : PagesProps) => {
+    const res = await axios.get(`${API_URL}/pokemon`, {
+      params : {
+        offset : pages.page * 20,
+        limit : 20
+      }
+    });
 
     return res.data;    
 }
@@ -19,7 +22,11 @@ export interface PokemonResponseProps {
   height : number,
   weight : number,
   sprites : {
-    front_default? : string
+    other? : {
+      "official-artwork" : {
+        front_default : string
+      }
+    }
   },
   types? : [
     {
@@ -33,20 +40,33 @@ export interface PokemonResponseProps {
       stat : {name  : string},
       base_stat : number
     }?
-  ]
+  ],
+  color : string
+}
+
+const fetchGetPokemonSpecies = async (name : string) => {
+  const res = await axios.get(`${API_URL}/pokemon-species/${name}`);
+  const data = res.data;
+
+  return data;
 }
 
 export const fetchGetPokemon = async (name : string) => {
     const res = await axios.get(`${API_URL}/pokemon/${name}`);
     const data = res.data;
 
+    const species = await fetchGetPokemonSpecies(name);
+    const koreaName = species.names.find((item: { language: { name: string; }; }) => item.language.name === "ko").name;
+    const color = species.color.name;
+
     return {
       id : data.id,
-      name : data.name,
+      name : koreaName,
       height : data.height,
       weight : data.weight,
       sprites : data.sprites,
       types : data.types,
-      stats : data.stats
+      stats : data.stats,
+      color
     }
 }

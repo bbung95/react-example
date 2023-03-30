@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from "@emotion/styled"
 import { SCREEN } from '../constants/constant';
+import { Link } from 'react-router-dom';
 
 const PageHeader = () => {
   return (
     <Header>
-      <Title>Pokémon</Title>
+      <Title>
+        <Link to="/">Pokémon</Link>
+        </Title>
       <Select>
         <option value="">Official</option>
         <option value="A">A</option>
@@ -29,6 +32,11 @@ const Title = styled.h1`
   color: #ffca09;
   text-shadow: -1px 0 blue, 0 2px blue, 1px 0 blue, 0 -1px blue;
   font-size: 32px;
+
+  & a {
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 const Select = styled.select`

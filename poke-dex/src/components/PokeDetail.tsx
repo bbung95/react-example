@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { SCREEN } from '../constants/constant';
 import { fetchGetPokemon, PokemonResponseProps } from '../module/api';
+import { formatChipNumber } from '../utils/numberFormat';
 
 const PokeDetail = () => {
 
@@ -17,29 +18,29 @@ const PokeDetail = () => {
       weight : 0,
       sprites : {},
       types : [],
-      stats : []
+      stats : [],
+      color : ""
     }
   );
 
   useEffect(() => {
     (async () => {
       const data = await fetchGetPokemon(name);
-      console.log(data)
       setPokemon(data);
     })()
-  },[])
+  },[name])
 
   return (
     <Body>
       <ImageContainer>
-        <img src={pokemon.sprites.front_default}/>
+        <img src={pokemon.sprites.other?.['official-artwork'].front_default} alt=""/>
       </ImageContainer>
       <Info>
         <h1>기본정보</h1>
         <ul>
           <li>
             <div>번호</div>
-            <div>{pokemon.id}</div>
+            <div>{formatChipNumber(pokemon.id)}</div>
           </li>
           <li>
             <div>이름</div>
