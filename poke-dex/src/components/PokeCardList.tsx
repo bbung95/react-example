@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import PokeCard from './PokeCard';
 import { SCREEN } from "../constants/constant";
+import { fecthGetPokemonList, PokemonListResponseProps } from '../module/api';
 
 const PokeCardList = () => {
 
-  const arr = new Array(10).fill(1);
+  const [pokemons, setPokemons] = useState<PokemonListResponseProps>({
+    count : 0,
+    next : "",
+    results : []
+  });
+
+  useEffect(() => {
+    (async () => {
+      const data = await fecthGetPokemonList();
+      setPokemons(data);
+    })()  
+  })
 
   return (
     <List>
-      {arr.map((_, idx) => <PokeCard key={idx} />)}
+      {pokemons.results.length > 0 && pokemons.results.map((item : {name : string}) => <PokeCard key={item.name} name={item.name}/>)}
     </List>
   );
 };

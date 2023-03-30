@@ -4,4 +4,4 @@ export const SCREEN = {
   "--sm-screen": "480px"
 }
 
-// export const API_URL = 
+export const API_URL = "https://pokeapi.co/api/v2";

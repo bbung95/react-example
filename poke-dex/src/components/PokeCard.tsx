@@ -1,18 +1,31 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import PokeNameChip from './PokeNameChip';
 
-const PokeCard = () => {
+interface PokeCardProps{
+  name : string
+}
+
+const PokeCard = ({name} : PokeCardProps) => {
+
+  const navigation = useNavigate();
+
+  const handleOnClickCard = (name : string) => {
+    navigation(`/pokemon/${name}`)
+  }
+
   return (
-    <Card>
-      <Header>
-          <PokeNameChip number={"002"} color="green">
-            이상해풀
-          </PokeNameChip>
-      </Header>
-      <Image src="https://via.placeholder.com/200"/>
-      <Desc><span>Pokémon</span></Desc>
-    </Card>
+      <Card role="button" onClick={() => handleOnClickCard(name)}>
+        <Header>
+            <PokeNameChip number={"002"} color="green">
+              {name}
+            </PokeNameChip>
+        </Header>
+        <Image src="https://via.placeholder.com/200"/>
+        <Desc><span>Pokémon</span></Desc>
+      </Card>
   );
 };
 
