@@ -21,18 +21,20 @@ export const fecthGetPokemonList = async (nextUrl? : string) => {
       }
     });
 
-    const newList = []
+    return res.data;    
+}
 
-    for(let value of res.data.results){
-      newList.push(await fetchGetPokemon(value.name))
+export interface PokemonCardPorps {
+  id : number,
+  name : string,
+  color : string,
+  sprites : {
+    other? : {
+      "official-artwork" : {
+        front_default : string
+      }
     }
-
-    console.log(newList)
-
-    return {
-      ...res.data,
-      results : newList
-    };    
+  },
 }
 
 export interface PokemonResponseProps {

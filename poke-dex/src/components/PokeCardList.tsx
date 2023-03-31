@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import PokeCard from './PokeCard';
 import { SCREEN } from "../constants/constant";
-import { fecthGetPokemonList, fetchGetPokemon, PokemonResponseProps, PokemonResponseListProps } from '../module/api';
+import { fecthGetPokemonList, PokemonResponseProps, PokemonResponseListProps } from '../module/api';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 const PokeCardList = () => {
@@ -13,7 +13,6 @@ const PokeCardList = () => {
     next : "",
     results : []
   });
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [infiniteRef] = useInfiniteScroll({
     loading : false,
@@ -40,8 +39,8 @@ const PokeCardList = () => {
 
   return (
     <List>
-      {pokemons.results.length > 0 && pokemons.results.map((item : PokemonResponseProps) => <PokeCard key={item.name} info={item}/>)}
-      <div ref={infiniteRef}>Loading....</div>
+      {pokemons.results.length > 0 && pokemons.results.map((item : PokemonResponseProps) => <PokeCard key={item.name} name={item.name}/>)}
+      {pokemons.next && <div ref={infiniteRef}>Loading....</div>}
     </List>
   );
 };

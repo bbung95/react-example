@@ -1,25 +1,54 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useIntersectionObserver } from 'react-intersection-observer-hook';
 import { useNavigate } from 'react-router-dom';
-import { PokemonResponseProps } from '../module/api';
+import { fetchGetPokemon, PokemonCardPorps } from '../module/api';
 import PokeNameChip from './PokeNameChip';
 
-const PokeCard = ({info} : {info : PokemonResponseProps}) => {
+const PokeCard = ({name} : {name : string}) => {
 
   const navigation = useNavigate();
+  const [pokemon, setPokemon] = useState<PokemonCardPorps>({
+    name : "",
+    id : 0,
+    color : "",
+    sprites : {
+      other : {
+        'official-artwork' : {
+          front_default : ""
+        }
+      }
+    }
+  });
+
+  const [ref, { entry }] = useIntersectionObserver();
+  const isVisible = entry && entry.isIntersecting;
 
   const handleOnClickCard = (name : string) => {
     navigation(`/pokemon/${name}`)
   }
 
+  useEffect(() => {
+
+    if(!isVisible){
+      return
+    }
+
+    (async () => {
+      const data = await fetchGetPokemon(name);
+      setPokemon(data)
+    })()
+
+  }, [name, isVisible])
+
   return (
-      <Card role="button" onClick={() => handleOnClickCard(info.name)}>
+      <Card ref={ref} role="button" onClick={() => handleOnClickCard(pokemon.name)}>
         <Header>
-            <PokeNameChip number={info.id} color={info.color}>
-              {info.name}
+            <PokeNameChip number={pokemon.id} color={pokemon.color}>
+              {pokemon.name}
             </PokeNameChip>
         </Header>
-        <Image src={info.sprites?.other?.['official-artwork'].front_default}/>
+        <Image src={pokemon.sprites?.other?.['official-artwork'].front_default}/>
         <Desc><span>Pokémon</span></Desc>
       </Card>
   );
