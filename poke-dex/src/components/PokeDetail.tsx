@@ -4,11 +4,14 @@ import styled from '@emotion/styled';
 import { SCREEN } from '../constants/constant';
 import { fetchGetPokemon, PokemonResponseProps } from '../module/api';
 import { formatChipNumber } from '../utils/numberFormat';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const PokeDetail = () => {
 
   const location = useLocation();
   const name = location.pathname.split("/")[2];
+  const imageType = useSelector((state : RootState) => state.imageType.type)
 
   const [pokemon, setPokemon] = useState<PokemonResponseProps>(
     {
@@ -16,13 +19,13 @@ const PokeDetail = () => {
       name : "",
       height : 0,
       weight : 0,
-      sprites : {},
+      images : {},
       types : [],
       stats : [],
       color : ""
     }
   );
-
+ 
   useEffect(() => {
     (async () => {
       const data = await fetchGetPokemon(name);
@@ -30,10 +33,11 @@ const PokeDetail = () => {
     })()
   },[name])
 
+
   return (
     <Body>
       <ImageContainer>
-        <img src={pokemon.sprites.other?.['official-artwork'].front_default} alt=""/>
+        {pokemon.images && <img src={pokemon.images[imageType]}  alt=""/>}
       </ImageContainer>
       <Info>
         <h1>기본정보</h1>
@@ -48,15 +52,15 @@ const PokeDetail = () => {
           </li>
           <li>
             <div>타입</div>
-            <div>{pokemon.types?.map(item => item?.type.name+" ")}</div>
+            <div>{pokemon.types?.map(item => item?.type.name).join(",")}</div>
           </li>
           <li>
             <div>키</div>
-            <div>{pokemon.height}</div>
+            <div>{pokemon.height / 10} m</div>
           </li>
           <li>
             <div>몸무게</div>
-            <div>{pokemon.weight}</div>
+            <div>{pokemon.weight / 10} kg</div>
           </li>
         </ul>
 
@@ -64,7 +68,7 @@ const PokeDetail = () => {
         <ul>
             {pokemon.stats?.map(item => 
               <li key={item?.stat.name}>
-                <div>{item?.stat.name}</div>
+                <div style={{width : 130}}>{item?.stat.name}</div>
                 <div>{item?.base_stat}</div>
               </li>)}
         </ul>

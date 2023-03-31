@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import { useIntersectionObserver } from 'react-intersection-observer-hook';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchGetPokemon, PokemonCardPorps } from '../module/api';
+import { RootState } from '../store';
 import PokeNameChip from './PokeNameChip';
 
 const PokeCard = ({name} : {name : string}) => {
@@ -12,15 +14,10 @@ const PokeCard = ({name} : {name : string}) => {
     name : "",
     id : 0,
     color : "",
-    sprites : {
-      other : {
-        'official-artwork' : {
-          front_default : ""
-        }
-      }
-    }
+    images : {}
   });
 
+  const imageType = useSelector((state : RootState) => state.imageType.type);
   const [ref, { entry }] = useIntersectionObserver();
   const isVisible = entry && entry.isIntersecting;
 
@@ -42,13 +39,13 @@ const PokeCard = ({name} : {name : string}) => {
   }, [name, isVisible])
 
   return (
-      <Card ref={ref} role="button" onClick={() => handleOnClickCard(pokemon.name)}>
+      <Card ref={ref} role="button" onClick={() => handleOnClickCard(name)}>
         <Header>
             <PokeNameChip number={pokemon.id} color={pokemon.color}>
               {pokemon.name}
             </PokeNameChip>
         </Header>
-        <Image src={pokemon.sprites?.other?.['official-artwork'].front_default}/>
+        {pokemon.images && <Image src={pokemon.images[imageType]}/>}
         <Desc><span>Pokémon</span></Desc>
       </Card>
   );
