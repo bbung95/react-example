@@ -5,15 +5,34 @@ export interface PagesProps{
   page : number
 }
 
-export const fecthGetPokemonList = async (pages : PagesProps) => {
-    const res = await axios.get(`${API_URL}/pokemon`, {
+export interface PokemonResponseListProps{
+  count : number,
+  next : string,
+  results : []
+}
+
+export const fecthGetPokemonList = async (nextUrl? : string) => {
+
+    const url = nextUrl ? nextUrl : `${API_URL}/pokemon`;
+
+    const res = await axios.get(url, {
       params : {
-        offset : pages.page * 20,
         limit : 20
       }
     });
 
-    return res.data;    
+    const newList = []
+
+    for(let value of res.data.results){
+      newList.push(await fetchGetPokemon(value.name))
+    }
+
+    console.log(newList)
+
+    return {
+      ...res.data,
+      results : newList
+    };    
 }
 
 export interface PokemonResponseProps {

@@ -19,7 +19,7 @@ const PokeCard = ({info} : {info : PokemonResponseProps}) => {
               {info.name}
             </PokeNameChip>
         </Header>
-        <Image src={info.sprites.other?.['official-artwork'].front_default}/>
+        <Image src={info.sprites?.other?.['official-artwork'].front_default}/>
         <Desc><span>Pokémon</span></Desc>
       </Card>
   );
@@ -61,9 +61,10 @@ const Card = styled.li`
   height: 300px;
   border: 1px solid #c0c0c0;
   box-shadow: 1px 1px 3px 1px #c0c0c0;
+  transition: all 0.2s;
 
   &:hover{
-    background-color: #e4e4e4;
+    scale: 1.07;
   }
 `
 
